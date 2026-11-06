@@ -3,7 +3,7 @@
 Thanks for helping. This file covers the workflow; the design lives in
 [`.prompt/plan.md`](.prompt/plan.md) (read it before any non-trivial change)
 and the user documentation in [`docs/`](docs/)
-([published site](https://batleforc.github.io/weebo-forgejo)).
+([published site](https://weebo-si-operator.github.io/weebo-forgejo)).
 
 ## Setup
 
@@ -66,7 +66,7 @@ CI regenerates them and fails on any difference.
 
 Plumbing shared with the sibling operators (reason codes, allow-list engine,
 secret stores, telemetry, leader election, webhook TLS server, envtest)
-lives in [weebo-operator-kit](https://github.com/batleforc/weebo-operator-kit),
+lives in [weebo-operator-kit](https://github.com/weebo-si-operator/weebo-operator-kit),
 pinned by tag in `Cargo.toml` (`weebo-kit-*` entries).
 
 - Fix shared behaviour **in the kit**, release it (tag), then bump the `tag`
@@ -82,4 +82,4 @@ Report vulnerabilities privately, see [SECURITY.md](SECURITY.md).
 ## Releasing
 
 Maintainers: see
-[Releasing](https://batleforc.github.io/weebo-forgejo/docs/contributing/releasing).
+[Releasing](https://weebo-si-operator.github.io/weebo-forgejo/docs/contributing/releasing).

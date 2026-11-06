@@ -56,7 +56,7 @@ importer() {
   docker run --rm -e FORGEJO_TOKEN \
     -v "$HOME/.kube/config:/kubeconfig:ro" -e KUBECONFIG=/kubeconfig \
     --entrypoint /usr/local/bin/weebo-forgejo-importer \
-    ghcr.io/batleforc/weebo-forgejo-operator:<version> "$@"
+    ghcr.io/weebo-si-operator/weebo-forgejo-operator:<version> "$@"
 }
 ```
 

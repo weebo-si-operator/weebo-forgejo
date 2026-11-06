@@ -17,22 +17,22 @@ You need [cosign](https://docs.sigstore.dev/cosign/system_config/installation/) 
 | Field | Value |
 | --- | --- |
 | OIDC issuer | `https://token.actions.githubusercontent.com` |
-| Identity | `https://github.com/batleforc/weebo-operator-kit/.github/workflows/publish.yml@refs/tags/vA.B.C` (the kit's workflow, at the kit release this one uses) |
-| Repository | `batleforc/weebo-forgejo` (the certificate's *GitHub Workflow Repository*) |
+| Identity | `https://github.com/weebo-si-operator/weebo-operator-kit/.github/workflows/publish.yml@refs/tags/vA.B.C` (the kit's workflow, at the kit release this one uses) |
+| Repository | `weebo-si-operator/weebo-forgejo` (the certificate's *GitHub Workflow Repository*) |
 
 The signing workflow is the kit's, so the identity names the kit; the
 repository it ran for is checked separately (`--certificate-github-workflow-repository`).
 
 ```bash
-export COSIGN_ID='^https://github.com/batleforc/weebo-operator-kit/\.github/workflows/publish\.yml@refs/tags/v.*$'
+export COSIGN_ID='^https://github.com/weebo-si-operator/weebo-operator-kit/\.github/workflows/publish\.yml@refs/tags/v.*$'
 export COSIGN_ISSUER=https://token.actions.githubusercontent.com
-export COSIGN_REPO=batleforc/weebo-forgejo
+export COSIGN_REPO=weebo-si-operator/weebo-forgejo
 ```
 
 ## Images
 
 ```bash
-IMAGE=ghcr.io/batleforc/weebo-forgejo-operator:vX.Y.Z   # or vX.Y.Z-static
+IMAGE=ghcr.io/weebo-si-operator/weebo-forgejo-operator:vX.Y.Z   # or vX.Y.Z-static
 cosign verify "$IMAGE" \
   --certificate-identity-regexp "$COSIGN_ID" \
   --certificate-github-workflow-repository "$COSIGN_REPO" \
@@ -44,7 +44,7 @@ Then pin what you verified by **digest**:
 
 ```bash
 DIGEST=$(docker buildx imagetools inspect "$IMAGE" --format '{{json .Manifest}}' | jq -r .digest)
-helm upgrade --install weebo-forgejo oci://ghcr.io/batleforc/charts/weebo-forgejo \
+helm upgrade --install weebo-forgejo oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo \
   --version X.Y.Z -n weebo-forgejo --set image.digest="$DIGEST"
 ```
 
@@ -68,7 +68,7 @@ docker buildx imagetools inspect "$IMAGE" --format '{{json (index .Provenance "l
 The chart is an OCI artifact signed the same way:
 
 ```bash
-cosign verify ghcr.io/batleforc/charts/weebo-forgejo:X.Y.Z \
+cosign verify ghcr.io/weebo-si-operator/charts/weebo-forgejo:X.Y.Z \
   --certificate-identity-regexp "$COSIGN_ID" \
   --certificate-github-workflow-repository "$COSIGN_REPO" \
   --certificate-oidc-issuer "$COSIGN_ISSUER"

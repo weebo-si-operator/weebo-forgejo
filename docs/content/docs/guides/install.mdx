@@ -20,12 +20,12 @@ Deployment and its admission webhook. Forgejo itself is not part of it.
 ## Install
 
 ```bash
-helm install weebo-forgejo oci://ghcr.io/batleforc/charts/weebo-forgejo \
+helm install weebo-forgejo oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo \
   --namespace weebo-forgejo --create-namespace --version X.Y.Z
 ```
 
 Versions are listed on the
-[releases page](https://github.com/batleforc/weebo-forgejo/releases). Every
+[releases page](https://github.com/weebo-si-operator/weebo-forgejo/releases). Every
 image and chart is signed; see [Verify a release](/docs/guides/verify-release)
 to check them before installing.
 
@@ -45,7 +45,7 @@ By default the chart creates a self-signed cert-manager `Issuer` for the
 webhook. To use an existing issuer instead:
 
 ```bash
-helm install weebo-forgejo oci://ghcr.io/batleforc/charts/weebo-forgejo \
+helm install weebo-forgejo oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo \
   --namespace weebo-forgejo --create-namespace \
   --set certManager.createIssuer=false \
   --set certManager.issuerRef.name=my-issuer \
@@ -73,7 +73,7 @@ openssl x509 -req -in tls.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 365
   -extfile <(printf "subjectAltName=DNS:%s,DNS:%s.cluster.local" "$SVC" "$SVC") -out tls.crt
 kubectl -n weebo-forgejo create secret tls weebo-forgejo-webhook-tls --cert tls.crt --key tls.key
 
-helm install weebo-forgejo oci://ghcr.io/batleforc/charts/weebo-forgejo \
+helm install weebo-forgejo oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo \
   --namespace weebo-forgejo \
   --set webhook.certManager.enabled=false \
   --set webhook.tls.secretName=weebo-forgejo-webhook-tls \
@@ -101,7 +101,7 @@ before it expires, with the same CA (or update `webhook.caBundle` first).
 
 Every value is validated against the chart's `values.schema.json`: a typo
 or an invalid enum fails the install instead of being ignored. `helm show
-values oci://ghcr.io/batleforc/charts/weebo-forgejo` prints them all with
+values oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo` prints them all with
 their comments.
 
 | Value | Default | Description |
@@ -134,10 +134,10 @@ their comments.
 
 | Artifact | Where |
 | --- | --- |
-| Helm chart | `oci://ghcr.io/batleforc/charts/weebo-forgejo`, version `X.Y.Z` (also attached to the GitHub Release) |
-| Operator image (Red Hat Hummingbird) | `ghcr.io/batleforc/weebo-forgejo-operator:vX.Y.Z` (and `latest`), `linux/amd64` |
-| Operator image (static, on Hummingbird's static base) | `ghcr.io/batleforc/weebo-forgejo-operator:vX.Y.Z-static` (and `static`), same platforms, when its scan passed |
-| CRD bundle | `weebo-forgejo-crds.yaml` on the [GitHub Release](https://github.com/batleforc/weebo-forgejo/releases) |
+| Helm chart | `oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo`, version `X.Y.Z` (also attached to the GitHub Release) |
+| Operator image (Red Hat Hummingbird) | `ghcr.io/weebo-si-operator/weebo-forgejo-operator:vX.Y.Z` (and `latest`), `linux/amd64` |
+| Operator image (static, on Hummingbird's static base) | `ghcr.io/weebo-si-operator/weebo-forgejo-operator:vX.Y.Z-static` (and `static`), same platforms, when its scan passed |
+| CRD bundle | `weebo-forgejo-crds.yaml` on the [GitHub Release](https://github.com/weebo-si-operator/weebo-forgejo/releases) |
 
 Both images also contain `weebo-forgejo-importer`, used to
 [migrate an existing Forgejo](/docs/guides/migration). They carry an SBOM and
@@ -158,13 +158,13 @@ each chart upgrade:
 
 ```bash
 kubectl apply --server-side \
-  -f https://github.com/batleforc/weebo-forgejo/releases/download/vX.Y.Z/weebo-forgejo-crds.yaml
+  -f https://github.com/weebo-si-operator/weebo-forgejo/releases/download/vX.Y.Z/weebo-forgejo-crds.yaml
 ```
 
 ## Upgrade
 
 ```bash
-helm upgrade weebo-forgejo oci://ghcr.io/batleforc/charts/weebo-forgejo \
+helm upgrade weebo-forgejo oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo \
   --namespace weebo-forgejo --version X.Y.Z
 ```
 

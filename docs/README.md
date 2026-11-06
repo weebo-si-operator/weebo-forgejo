@@ -1,7 +1,7 @@
 # docs
 
 The weebo-forgejo documentation site ([Fumadocs](https://fumadocs.dev) on
-Next.js), published at <https://batleforc.github.io/weebo-forgejo>.
+Next.js), published at <https://weebo-si-operator.github.io/weebo-forgejo>.
 
 ```bash
 task docs          # dev server on http://localhost:3000
@@ -29,7 +29,7 @@ task docs:build    # lint + static export into out/
 ## @weebo/operator-docs
 
 What every weebo operator's site shares comes from the kit's
-[`packages/operator-docs`](https://github.com/batleforc/weebo-operator-kit/tree/main/packages/operator-docs):
+[`packages/operator-docs`](https://github.com/weebo-si-operator/weebo-operator-kit/tree/main/packages/operator-docs):
 the CRD page generator, the manifest builder, the theme, the layouts, the
 docs page and the search/llms/OG routes. This site keeps its content, its
 name and repo (`src/lib/shared.ts`), the generator's config, the guided

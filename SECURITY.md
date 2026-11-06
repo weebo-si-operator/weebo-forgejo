@@ -5,7 +5,7 @@
 **Please do not open a public issue for a security problem.**
 
 Report it privately through GitHub's private vulnerability reporting:
-[Security → Report a vulnerability](https://github.com/batleforc/weebo-forgejo/security/advisories/new).
+[Security → Report a vulnerability](https://github.com/weebo-si-operator/weebo-forgejo/security/advisories/new).
 Include what you found, the affected version (image tag or digest, chart
 version), and how to reproduce it if you can.
 
@@ -28,7 +28,7 @@ chart and the CRDs published from this repository. Typical concerns are a
 namespace escaping the `ForgejoNamespacePolicy` allow-list, a CR writing or
 reading a Secret it should not reach, privilege escalation through the
 operator's Forgejo admin token, and admission webhook bypasses. The
-[security model](https://batleforc.github.io/weebo-forgejo/docs/guides/security)
+[security model](https://weebo-si-operator.github.io/weebo-forgejo/docs/guides/security)
 describes the intended boundaries.
 
 Out of scope: vulnerabilities in Forgejo itself (report them to
@@ -39,4 +39,4 @@ require cluster-admin or a Forgejo site-admin to begin with.
 
 Images, the Helm chart and the CRD bundle are signed keylessly with cosign
 and ship an SBOM and SLSA provenance. See
-[Verify a release](https://batleforc.github.io/weebo-forgejo/docs/guides/verify-release).
+[Verify a release](https://weebo-si-operator.github.io/weebo-forgejo/docs/guides/verify-release).

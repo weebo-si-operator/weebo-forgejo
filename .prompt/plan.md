@@ -1,6 +1,6 @@
 # Plan - Forgejo Kubernetes Operator
 
-Pendant de `batleforc/weebo-authentik` pour Forgejo. Ce document est la
+Pendant de `weebo-si-operator/weebo-authentik` pour Forgejo. Ce document est la
 source de vérité de conception (scope CRD, conventions d'erreur, modèle de
 status, politique de mutation, tests, CI). `CLAUDE.md` l'indexe ; toute
 modification non triviale doit d'abord être cohérente avec ce plan (ou le

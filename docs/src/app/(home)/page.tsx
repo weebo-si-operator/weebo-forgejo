@@ -13,7 +13,7 @@ export default function HomePage() {
         { href: '/docs/ide', label: 'Access the CRD IDE' },
       ]}
       install={`helm install weebo-forgejo \\
-  oci://ghcr.io/batleforc/charts/weebo-forgejo \\
+  oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo \\
   --namespace weebo-forgejo --create-namespace`}
       example={{
         title: 'Declare a repository',

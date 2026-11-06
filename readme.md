@@ -2,10 +2,10 @@
 
 Kubernetes operator managing Forgejo (v16+) objects — users, organizations,
 teams, repositories, keys, webhooks, OAuth2 applications, access tokens —
-as CRDs. Sibling of [weebo-authentik](https://github.com/batleforc/weebo-authentik).
+as CRDs. Sibling of [weebo-authentik](https://github.com/weebo-si-operator/weebo-authentik).
 
-**Documentation: <https://batleforc.github.io/weebo-forgejo>**: start with
-[Getting started](https://batleforc.github.io/weebo-forgejo/docs/getting-started/).
+**Documentation: <https://weebo-si-operator.github.io/weebo-forgejo>**: start with
+[Getting started](https://weebo-si-operator.github.io/weebo-forgejo/docs/getting-started/).
 
 Status: **M4** — `ForgejoInstance`, `ForgejoUser` (local, bot, external
 OIDC, observed), `ForgejoOrganization`, `ForgejoTeam`, `ForgejoRepository`
@@ -19,13 +19,13 @@ site in [`docs/`](docs/) (`task docs`), examples in
 Design and roadmap: [`.prompt/plan.md`](.prompt/plan.md).
 
 ```bash
-helm install weebo-forgejo oci://ghcr.io/batleforc/charts/weebo-forgejo \
+helm install weebo-forgejo oci://ghcr.io/weebo-si-operator/charts/weebo-forgejo \
   --namespace weebo-forgejo --create-namespace
 ```
 
 Releases (multi-arch images, chart, CRD bundle) are signed with cosign and
 ship an SBOM and SLSA provenance:
-[verify a release](https://batleforc.github.io/weebo-forgejo/docs/guides/verify-release).
+[verify a release](https://weebo-si-operator.github.io/weebo-forgejo/docs/guides/verify-release).
 Security reports: [SECURITY.md](SECURITY.md). Contributing:
 [CONTRIBUTING.md](CONTRIBUTING.md).
 

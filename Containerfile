@@ -50,9 +50,9 @@ USER 65532:65532
 # publish workflow (build-push-action `labels:`).
 LABEL org.opencontainers.image.title="weebo-forgejo-operator" \
       org.opencontainers.image.description="Kubernetes operator managing Forgejo objects as CRDs" \
-      org.opencontainers.image.source="https://github.com/batleforc/weebo-forgejo" \
-      org.opencontainers.image.url="https://github.com/batleforc/weebo-forgejo" \
-      org.opencontainers.image.documentation="https://batleforc.github.io/weebo-forgejo" \
+      org.opencontainers.image.source="https://github.com/weebo-si-operator/weebo-forgejo" \
+      org.opencontainers.image.url="https://github.com/weebo-si-operator/weebo-forgejo" \
+      org.opencontainers.image.documentation="https://weebo-si-operator.github.io/weebo-forgejo" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.vendor="batleforc"
 

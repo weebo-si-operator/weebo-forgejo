@@ -10,7 +10,7 @@
 replicaCount: 2
 
 image:
-  repository: ghcr.io/batleforc/weebo-forgejo-operator
+  repository: ghcr.io/weebo-si-operator/weebo-forgejo-operator
   # -- Defaults to `v` + .Chart.AppVersion (the release image tag) when
   # empty; e.g. `v0.1.0-static` for the statically linked image.
   tag: ""

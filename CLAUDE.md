@@ -3,7 +3,7 @@
 Kubernetes operator that manages objects inside an existing Forgejo (v16+)
 — users, organizations, teams, repositories, keys, webhooks, OAuth2
 applications, access tokens — as CRDs. Sibling of
-[weebo-authentik](https://github.com/batleforc/weebo-authentik), same
+[weebo-authentik](https://github.com/weebo-si-operator/weebo-authentik), same
 architecture and conventions. **`.prompt/plan.md`** is the authoritative
 design doc (CRD scope, reason codes, status model, mutation/deletion
 policy, client generation, milestones) — read it before any non-trivial
