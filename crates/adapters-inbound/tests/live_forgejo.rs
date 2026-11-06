@@ -74,6 +74,7 @@ async fn operator_manages_a_user_an_org_and_a_team_end_to_end() {
                         name: "alice-forgejo".into(),
                         namespace: Some("default".into()),
                         path: None,
+                        mount: None,
                     }],
                     deletion_policy: DeletionPolicy::Delete,
                 },

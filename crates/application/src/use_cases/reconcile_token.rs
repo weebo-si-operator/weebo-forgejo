@@ -819,6 +819,7 @@ mod tests {
             name: "ci".into(),
             namespace: None,
             path: None,
+            mount: None,
         }];
         let first = reconcile_token(input(&s, None, 0), &fj, &secrets)
             .await

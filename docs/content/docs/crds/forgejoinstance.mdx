@@ -49,6 +49,7 @@ spec:
 
 | Field | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
+| [`additionalMounts`](#spec.secretStore.vault.additionalMounts) | `object[]` | no |  | Other KV v2 mounts this instance's CRs may write to, by naming one in a secret target's `mount`: only at the paths each mount's own `pathGrants` open (no per-namespace subtree there; `clusterScoped` refused like above). E.g. a per-user mount where token CRs write `+/forgejo-token` and nothing else. The Vault policy of the operator's role stays the hard bound.<br /><br />Constraints: `maxItems: 8` |
 | `address` | `string` | yes |  | Vault server address, e.g. `https://vault.example.com:8200`. |
 | [`caSecretRef`](#spec.secretStore.vault.caSecretRef) | `object` | no |  | Optional custom CA certificate to verify Vault's TLS with, read from a Kubernetes `Secret` (the referenced `key` must hold a PEM bundle). Use this to trust a private CA without mounting it into the operator pod — the operator reads the Secret via the API and hands the PEM to its Vault client. When unset, the system trust store is used. Only consulted for `https://` Vault addresses. |
 | `kubernetesAuthMount` | `string` | no | `"kubernetes"` | Mount path of Vault's Kubernetes auth backend. Defaults to `kubernetes`, Vault's own default mount name. |
@@ -60,6 +61,29 @@ spec:
 **Rules**
 
 - pathGrants name namespaces: every object writing credentials is namespaced, clusterScoped grants never apply — `!has(self.pathGrants) || self.pathGrants.all(g, !has(g.clusterScoped) || !g.clusterScoped)`
+- additionalMounts pathGrants name namespaces: every object writing credentials is namespaced, clusterScoped grants never apply — `!has(self.additionalMounts) || self.additionalMounts.all(m, m.pathGrants.all(g, !has(g.clusterScoped) || !g.clusterScoped))`
+- an additional mount is not the instance's own mount — `!has(self.additionalMounts) || self.additionalMounts.all(m, m.mount != self.mount)`
+
+### `spec.secretStore.vault.additionalMounts[]` [#spec.secretStore.vault.additionalMounts]
+
+| Field | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| `mount` | `string` | yes |  | The KV v2 mount, as targets name it in their `mount`.<br /><br />Constraints: `minLength: 1`, `maxLength: 128` |
+| [`pathGrants`](#spec.secretStore.vault.additionalMounts.pathGrants) | `object[]` | yes |  | The paths of this mount objects may write to.<br /><br />Constraints: `minItems: 1`, `maxItems: 8` |
+
+### `spec.secretStore.vault.additionalMounts[].pathGrants[]` [#spec.secretStore.vault.additionalMounts.pathGrants]
+
+| Field | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| `clusterScoped` | `boolean` | no |  | The grant opens `paths` to cluster-scoped objects (instead of `namespaces`). |
+| `namespaces` | `string[]` | no |  | Namespaces whose objects may write `paths`: exact names, `*`, or a prefix glob such as `team-*`. `team-*` opens the paths to every matching namespace.<br /><br />Constraints: `maxItems: 64` |
+| `paths` | `string[]` | yes |  | Path patterns under the mount, compared segment by segment: a literal segment matches itself, `+` exactly one segment, and a last `*` one or more. Each holds at least one literal segment, e.g. `shared/auth`, `+/auth`, `platform/*`. Prefer exact paths where values not written by the operator live: a covered object may take over a value no object owns yet.<br /><br />Constraints: `minItems: 1`, `maxItems: 64` |
+
+**Rules**
+
+- a grant names namespaces or is clusterScoped, not both — `(has(self.namespaces) && size(self.namespaces) > 0) != (has(self.clusterScoped) && self.clusterScoped)`
+- `paths[]`: a path pattern has no "." or ".." segment — `!self.matches('(^|/)\\.\\.?(/|$)')`
+- `paths[]`: a path pattern has at least one literal segment — `self.matches('(^|/)[^/*+]+(/|$)')`
 
 ### `spec.secretStore.vault.caSecretRef` [#spec.secretStore.vault.caSecretRef]
 

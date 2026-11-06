@@ -26,7 +26,9 @@ pub fn check_targets(targets: &[SecretTarget], owner: &SecretOwner<'_>) -> Resul
         TargetViolation::CrossNamespace { .. } => {
             Failure::new(ReasonCode::CrossNamespaceReference, v.to_string())
         }
-        TargetViolation::MissingNamespace { .. } => {
+        TargetViolation::MissingNamespace { .. }
+        | TargetViolation::MountWithoutVault { .. }
+        | TargetViolation::MountWithoutPath { .. } => {
             Failure::new(ReasonCode::InvalidSpec, v.to_string())
         }
     })

@@ -190,8 +190,10 @@ async fn check_vault_paths(
         }
     };
     let paths = VaultPaths {
+        mount: &vault.mount,
         path_prefix: &vault.path_prefix,
         path_grants: &vault.path_grants,
+        additional_mounts: &vault.additional_mounts,
     };
     check_vault_targets(targets, Some(namespace), Some(paths))
         .map_err(|m| Denial::new(ReasonCode::SecretTargetFailed, m))
@@ -375,6 +377,41 @@ mod tests {
             .unwrap_err();
         assert!(
             denial.message.contains("no pathGrants entry"),
+            "{}",
+            denial.message
+        );
+    }
+
+    #[tokio::test]
+    async fn a_target_on_an_additional_mount_needs_its_grant() {
+        let bound = application::ports::BoundInstance::cluster("main");
+        let spec: api::instance::VaultSecretStoreSpec = serde_json::from_value(serde_json::json!({
+            "address": "https://vault:8200", "mount": "secret", "kubernetesAuthRole": "forgejo",
+            "additionalMounts": [{"mount": "users",
+                "pathGrants": [{"namespaces": ["ci"], "paths": ["+/forgejo-token"]}]}],
+        }))
+        .unwrap();
+        let target = |mount: &str, path: &str| -> SecretTarget {
+            serde_json::from_value(serde_json::json!(
+                {"backend": "vault", "name": "tok", "mount": mount, "path": path}
+            ))
+            .unwrap()
+        };
+        let vaults = Vaults(InstanceVault::Vault(Box::new(spec)));
+        let (vaults, bound) = (&vaults, &bound);
+        let check =
+            |t: SecretTarget| async move { check_vault_paths(vaults, bound, "ci", &[t]).await };
+        assert!(check(target("users", "max/forgejo-token")).await.is_ok());
+        let denial = check(target("users", "max/notes")).await.unwrap_err();
+        assert_eq!(denial.reason, ReasonCode::SecretTargetFailed);
+        assert!(
+            denial.message.contains("on mount \"users\""),
+            "{}",
+            denial.message
+        );
+        let denial = check(target("orgs-prod", "x/y")).await.unwrap_err();
+        assert!(
+            denial.message.contains("additionalMounts"),
             "{}",
             denial.message
         );

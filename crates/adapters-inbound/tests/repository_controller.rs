@@ -234,6 +234,7 @@ async fn repository_with_team_hook_and_generated_deploy_key() {
                         name: "ci-key".into(),
                         namespace: None,
                         path: None,
+                        mount: None,
                     }],
                 },
                 deletion_policy: DeletionPolicy::Delete,

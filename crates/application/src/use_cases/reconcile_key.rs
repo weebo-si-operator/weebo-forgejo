@@ -397,6 +397,7 @@ mod tests {
                 name: "deploy".into(),
                 namespace: None,
                 path: None,
+                mount: None,
             }],
         }
     }
@@ -722,6 +723,7 @@ mod tests {
                 name: "ssh".into(),
                 namespace: None,
                 path: None,
+                mount: None,
             }],
         };
         let input = |current, nonce: Option<&str>| KeyInput {

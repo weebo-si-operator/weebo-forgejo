@@ -18,6 +18,7 @@ fn target(name: &str, namespace: Option<&str>) -> SecretTarget {
         name: name.into(),
         namespace: namespace.map(str::to_string),
         path: None,
+        mount: None,
     }
 }
 

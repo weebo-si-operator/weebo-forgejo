@@ -63,20 +63,36 @@ pub async fn reconcile_instance(gateway: &dyn ForgejoGateway, require_admin: boo
 /// schema refuses them already; this catches a CR stored under an older
 /// schema (its Vault targets fail the same way at login).
 pub fn check_path_grants(vault: Option<&VaultSecretStoreSpec>) -> Option<Failure> {
-    let grants: Vec<PathGrant<'_>> = vault?
-        .path_grants
-        .iter()
-        .map(|g| PathGrant {
-            namespaces: &g.namespaces,
-            cluster_scoped: g.cluster_scoped,
-            paths: &g.paths,
+    let vault = vault?;
+    let check = |grants: &[api::instance::VaultPathGrant], at: &str| {
+        let grants: Vec<PathGrant<'_>> = grants
+            .iter()
+            .map(|g| PathGrant {
+                namespaces: &g.namespaces,
+                cluster_scoped: g.cluster_scoped,
+                paths: &g.paths,
+            })
+            .collect();
+        vault_paths::validate(&grants).err().map(|e| {
+            Failure::new(
+                ReasonCode::InvalidVaultPathGrants,
+                format!("secretStore.vault.{at}{e}"),
+            )
         })
-        .collect();
-    vault_paths::validate(&grants).err().map(|e| {
-        Failure::new(
-            ReasonCode::InvalidVaultPathGrants,
-            format!("secretStore.vault.{e}"),
-        )
+    };
+    check(&vault.path_grants, "").or_else(|| {
+        vault.additional_mounts.iter().enumerate().find_map(|(i, m)| {
+            if m.mount.is_empty() || m.mount == vault.mount {
+                return Some(Failure::new(
+                    ReasonCode::InvalidVaultPathGrants,
+                    format!(
+                        "secretStore.vault.additionalMounts[{i}] must name a mount other than {:?}",
+                        vault.mount
+                    ),
+                ));
+            }
+            check(&m.path_grants, &format!("additionalMounts[{i}]."))
+        })
     })
 }
 
@@ -145,5 +161,33 @@ mod tests {
         fj.fail_next(crate::ports::GatewayError::Unreachable("dns".into()));
         let outcome = reconcile_instance(&fj, true).await;
         assert_eq!(outcome.reason(), ReasonCode::InstanceUnreachable);
+    }
+
+    #[test]
+    fn invalid_additional_mounts_are_reported() {
+        let vault = |mount: &str, paths: &[&str]| -> VaultSecretStoreSpec {
+            serde_json::from_value(serde_json::json!({
+                "address": "https://vault:8200", "mount": "secret",
+                "kubernetesAuthRole": "forgejo",
+                "additionalMounts": [{"mount": mount,
+                    "pathGrants": [{"namespaces": ["ci"], "paths": paths}]}],
+            }))
+            .unwrap()
+        };
+        assert!(check_path_grants(Some(&vault("users", &["+/forgejo-token"]))).is_none());
+        for (spec, refused) in [
+            (
+                vault("users", &["+/*"]),
+                "additionalMounts[0].pathGrants[0]",
+            ),
+            (
+                vault("secret", &["+/forgejo-token"]),
+                "other than \"secret\"",
+            ),
+        ] {
+            let failure = check_path_grants(Some(&spec)).expect(refused);
+            assert_eq!(failure.reason, ReasonCode::InvalidVaultPathGrants);
+            assert!(failure.message.contains(refused), "{}", failure.message);
+        }
     }
 }

@@ -414,6 +414,7 @@ mod tests {
             name: "alice-forgejo".into(),
             namespace: Some("team-a".into()),
             path: None,
+            mount: None,
         }
     }
 

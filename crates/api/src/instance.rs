@@ -2,7 +2,7 @@ use kube::CustomResource;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-pub use weebo_kit_api::{SecretStoreBackend, TlsOptions, VaultPathGrant};
+pub use weebo_kit_api::{SecretStoreBackend, TlsOptions, VaultAdditionalMount, VaultPathGrant};
 
 use crate::common::SecretKeyRef;
 use crate::status::ForgejoStatus;
@@ -67,7 +67,11 @@ pub struct SecretStoreSpec {
 #[serde(rename_all = "camelCase")]
 #[schemars(extend("x-kubernetes-validations" = [
     {"rule": "!has(self.pathGrants) || self.pathGrants.all(g, !has(g.clusterScoped) || !g.clusterScoped)",
-     "message": "pathGrants name namespaces: every object writing credentials is namespaced, clusterScoped grants never apply"}
+     "message": "pathGrants name namespaces: every object writing credentials is namespaced, clusterScoped grants never apply"},
+    {"rule": "!has(self.additionalMounts) || self.additionalMounts.all(m, m.pathGrants.all(g, !has(g.clusterScoped) || !g.clusterScoped))",
+     "message": "additionalMounts pathGrants name namespaces: every object writing credentials is namespaced, clusterScoped grants never apply"},
+    {"rule": "!has(self.additionalMounts) || self.additionalMounts.all(m, m.mount != self.mount)",
+     "message": "an additional mount is not the instance's own mount"}
 ]))]
 pub struct VaultSecretStoreSpec {
     /// Vault server address, e.g. `https://vault.example.com:8200`.
@@ -101,6 +105,15 @@ pub struct VaultSecretStoreSpec {
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     #[schemars(length(max = 32))]
     pub path_grants: Vec<VaultPathGrant>,
+    /// Other KV v2 mounts this instance's CRs may write to, by naming one
+    /// in a secret target's `mount`: only at the paths each mount's own
+    /// `pathGrants` open (no per-namespace subtree there; `clusterScoped`
+    /// refused like above). E.g. a per-user mount where token CRs write
+    /// `+/forgejo-token` and nothing else. The Vault policy of the
+    /// operator's role stays the hard bound.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[schemars(length(max = 8))]
+    pub additional_mounts: Vec<VaultAdditionalMount>,
     /// Vault Kubernetes-auth role this operator authenticates as — its own
     /// ServiceAccount JWT is exchanged for a Vault token via
     /// `auth/<kubernetesAuthMount>/login`.
