@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.8.0](https://github.com/batleforc/weebo-forgejo/compare/6ad5b68496fa40b1920419207b389d4a2038a947..v0.8.0) - 2026-11-06
+#### Features
+- (**vault**) additionalMounts, secretTargets on another KV mount (kit v0.27.0) - ([6ad5b68](https://github.com/batleforc/weebo-forgejo/commit/6ad5b68496fa40b1920419207b389d4a2038a947)) - Max Batleforc, Claude Opus 5.5
+#### Continuous Integration
+- move to the weebo-si-operator GitHub org - ([ffa743d](https://github.com/batleforc/weebo-forgejo/commit/ffa743deb45ac011e995647513fb436e0863ce1d)) - Max Batleforc, Claude Opus 5.5
+
+- - -
+
 ## [v0.7.0](https://github.com/weebo-si-operator/weebo-forgejo/compare/90d3c6e964cc93c91db4ac77c9cc71761291174f..v0.7.0) - 2026-10-22
 #### Features
 - kit v0.24.0, Git remotes, webhooks and Vault drawn in the CRD IDE (#24) - ([90d3c6e](https://github.com/weebo-si-operator/weebo-forgejo/commit/90d3c6e964cc93c91db4ac77c9cc71761291174f)) - Maxime, Claude Opus 5.5 (1M context)
