@@ -28,7 +28,8 @@ pub fn check_targets(targets: &[SecretTarget], owner: &SecretOwner<'_>) -> Resul
         }
         TargetViolation::MissingNamespace { .. }
         | TargetViolation::MountWithoutVault { .. }
-        | TargetViolation::MountWithoutPath { .. } => {
+        | TargetViolation::MountWithoutPath { .. }
+        | TargetViolation::VaultNamespaceWithoutMount { .. } => {
             Failure::new(ReasonCode::InvalidSpec, v.to_string())
         }
     })

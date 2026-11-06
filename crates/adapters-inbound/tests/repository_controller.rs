@@ -235,6 +235,7 @@ async fn repository_with_team_hook_and_generated_deploy_key() {
                         namespace: None,
                         path: None,
                         mount: None,
+                        vault_namespace: None,
                     }],
                 },
                 deletion_policy: DeletionPolicy::Delete,

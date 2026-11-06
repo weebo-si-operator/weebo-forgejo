@@ -68,6 +68,32 @@ spec:
                             only at the paths its grants open: nothing in it is any namespace's by
                             default. The Vault policy of the operator's role stays the hard bound.
                           properties:
+                            auth:
+                              description: |-
+                                A login of its own for this mount, done in `vaultNamespace` on first
+                                use. Unset: the instance's login. A failed login only fails the
+                                targets on this mount.
+                              nullable: true
+                              properties:
+                                kubernetes:
+                                  description: Vault's Kubernetes auth, with the operator's ServiceAccount token.
+                                  nullable: true
+                                  properties:
+                                    mount:
+                                      description: The Kubernetes auth mount, e.g. `kubernetes`.
+                                      maxLength: 128
+                                      minLength: 1
+                                      type: string
+                                    role:
+                                      description: The role to log in with.
+                                      maxLength: 128
+                                      minLength: 1
+                                      type: string
+                                  required:
+                                  - mount
+                                  - role
+                                  type: object
+                              type: object
                             mount:
                               description: The KV v2 mount, as targets name it in their `mount`.
                               maxLength: 128
@@ -127,6 +153,16 @@ spec:
                               maxItems: 8
                               minItems: 1
                               type: array
+                            vaultNamespace:
+                              description: |-
+                                The Vault namespace the mount lives in (sent as `X-Vault-Namespace`).
+                                Unset: the namespace of the instance's own login. Two additional
+                                mounts may share a name only in different namespaces.
+                              maxLength: 128
+                              minLength: 1
+                              nullable: true
+                              pattern: ^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$
+                              type: string
                           required:
                           - mount
                           - pathGrants

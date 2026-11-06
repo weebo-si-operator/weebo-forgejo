@@ -820,6 +820,7 @@ mod tests {
             namespace: None,
             path: None,
             mount: None,
+            vault_namespace: None,
         }];
         let first = reconcile_token(input(&s, None, 0), &fj, &secrets)
             .await

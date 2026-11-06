@@ -68,8 +68,23 @@ spec:
 
 | Field | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
+| [`auth`](#spec.secretStore.vault.additionalMounts.auth) | `object` | no |  | A login of its own for this mount, done in `vaultNamespace` on first use. Unset: the instance's login. A failed login only fails the targets on this mount. |
 | `mount` | `string` | yes |  | The KV v2 mount, as targets name it in their `mount`.<br /><br />Constraints: `minLength: 1`, `maxLength: 128` |
 | [`pathGrants`](#spec.secretStore.vault.additionalMounts.pathGrants) | `object[]` | yes |  | The paths of this mount objects may write to.<br /><br />Constraints: `minItems: 1`, `maxItems: 8` |
+| `vaultNamespace` | `string` | no |  | The Vault namespace the mount lives in (sent as `X-Vault-Namespace`). Unset: the namespace of the instance's own login. Two additional mounts may share a name only in different namespaces.<br /><br />Constraints: `pattern: ^[A-Za-z0-9_-]+(/[A-Za-z0-9_-]+)*$`, `minLength: 1`, `maxLength: 128` |
+
+### `spec.secretStore.vault.additionalMounts[].auth` [#spec.secretStore.vault.additionalMounts.auth]
+
+| Field | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| [`kubernetes`](#spec.secretStore.vault.additionalMounts.auth.kubernetes) | `object` | no |  | Vault's Kubernetes auth, with the operator's ServiceAccount token. |
+
+### `spec.secretStore.vault.additionalMounts[].auth.kubernetes` [#spec.secretStore.vault.additionalMounts.auth.kubernetes]
+
+| Field | Type | Required | Default | Description |
+| --- | --- | --- | --- | --- |
+| `mount` | `string` | yes |  | The Kubernetes auth mount, e.g. `kubernetes`.<br /><br />Constraints: `minLength: 1`, `maxLength: 128` |
+| `role` | `string` | yes |  | The role to log in with.<br /><br />Constraints: `minLength: 1`, `maxLength: 128` |
 
 ### `spec.secretStore.vault.additionalMounts[].pathGrants[]` [#spec.secretStore.vault.additionalMounts.pathGrants]
 

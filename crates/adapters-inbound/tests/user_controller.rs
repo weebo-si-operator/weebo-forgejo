@@ -48,6 +48,7 @@ fn local_spec(username: &str) -> ForgejoUserSpec {
             namespace: Some("default".into()),
             path: None,
             mount: None,
+            vault_namespace: None,
         }],
         deletion_policy: DeletionPolicy::Orphan,
     }

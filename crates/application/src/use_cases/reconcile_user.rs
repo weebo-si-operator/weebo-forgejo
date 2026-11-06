@@ -415,6 +415,7 @@ mod tests {
             namespace: Some("team-a".into()),
             path: None,
             mount: None,
+            vault_namespace: None,
         }
     }
 

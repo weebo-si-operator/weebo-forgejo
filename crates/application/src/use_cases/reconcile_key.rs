@@ -398,6 +398,7 @@ mod tests {
                 namespace: None,
                 path: None,
                 mount: None,
+                vault_namespace: None,
             }],
         }
     }
@@ -724,6 +725,7 @@ mod tests {
                 namespace: None,
                 path: None,
                 mount: None,
+                vault_namespace: None,
             }],
         };
         let input = |current, nonce: Option<&str>| KeyInput {
