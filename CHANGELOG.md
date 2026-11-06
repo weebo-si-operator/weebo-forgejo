@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.8.1](https://github.com/weebo-si-operator/weebo-forgejo/compare/c6398976470ebc3d0d7393ebc1c336993fb2970c..v0.8.1) - 2026-11-06
+#### Miscellaneous Chores
+- (**deps**) weebo-operator-kit v0.28.1 - ([c639897](https://github.com/weebo-si-operator/weebo-forgejo/commit/c6398976470ebc3d0d7393ebc1c336993fb2970c)) - Max Batleforc, Claude Opus 5.5
+
+- - -
+
 ## [v0.8.0](https://github.com/batleforc/weebo-forgejo/compare/6ad5b68496fa40b1920419207b389d4a2038a947..v0.8.0) - 2026-11-06
 #### Features
 - (**vault**) additionalMounts, secretTargets on another KV mount (kit v0.27.0) - ([6ad5b68](https://github.com/batleforc/weebo-forgejo/commit/6ad5b68496fa40b1920419207b389d4a2038a947)) - Max Batleforc, Claude Opus 5.5
