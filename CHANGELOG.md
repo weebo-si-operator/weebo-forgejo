@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.8.2](https://github.com/weebo-si-operator/weebo-forgejo/compare/42564402e8cb602324fe18d274c6e69278ac3b2b..v0.8.2) - 2026-11-06
+#### Continuous Integration
+- accept CVE-2026-84243 (glibc of the core runtime) until 2026-12-06 - ([4256440](https://github.com/weebo-si-operator/weebo-forgejo/commit/42564402e8cb602324fe18d274c6e69278ac3b2b)) - Max Batleforc, Claude Opus 5.5
+
+- - -
+
 ## [v0.8.1](https://github.com/weebo-si-operator/weebo-forgejo/compare/c6398976470ebc3d0d7393ebc1c336993fb2970c..v0.8.1) - 2026-11-06
 #### Miscellaneous Chores
 - (**deps**) weebo-operator-kit v0.28.1 - ([c639897](https://github.com/weebo-si-operator/weebo-forgejo/commit/c6398976470ebc3d0d7393ebc1c336993fb2970c)) - Max Batleforc, Claude Opus 5.5
