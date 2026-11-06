@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.9.0](https://github.com/weebo-si-operator/weebo-forgejo/compare/3a98d57da6b5839e44dda983d5d0473dff6738f0..v0.9.0) - 2026-11-06
+#### Features
+- (**vault**) additional mounts in other Vault namespaces (kit v0.29.0) - ([3a98d57](https://github.com/weebo-si-operator/weebo-forgejo/commit/3a98d57da6b5839e44dda983d5d0473dff6738f0)) - Max Batleforc, Claude Opus 5.5
+
+- - -
+
 ## [v0.8.2](https://github.com/weebo-si-operator/weebo-forgejo/compare/42564402e8cb602324fe18d274c6e69278ac3b2b..v0.8.2) - 2026-11-06
 #### Continuous Integration
 - accept CVE-2026-84243 (glibc of the core runtime) until 2026-12-06 - ([4256440](https://github.com/weebo-si-operator/weebo-forgejo/commit/42564402e8cb602324fe18d274c6e69278ac3b2b)) - Max Batleforc, Claude Opus 5.5
