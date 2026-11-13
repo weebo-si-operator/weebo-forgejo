@@ -13,7 +13,7 @@ permissions: {}
 
 jobs:
   perf:
-    uses: weebo-si-operator/weebo-operator-kit/.github/workflows/perf.yml@v0.29.0
+    uses: weebo-si-operator/weebo-operator-kit/.github/workflows/perf.yml@v0.31.0
     permissions:
       contents: write
       pull-requests: write

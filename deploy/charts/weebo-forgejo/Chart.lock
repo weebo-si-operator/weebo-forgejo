@@ -1,6 +1,6 @@
 dependencies:
 - name: weebo-operator-lib
   repository: oci://ghcr.io/weebo-si-operator/charts
-  version: 0.29.0
-digest: sha256:fe3c5c0ff94a9baf684516cb871bb0b1abea56452182d77ff58e5481f23cff86
-generated: "2026-11-06T21:05:00.93194875+01:00"
+  version: 0.31.0
+digest: sha256:0189f06e6000bc680b26be829fcc78ec7ae3b0ef843d01804d7607c3bac322e9
+generated: "2026-11-14T00:24:18.479328312+01:00"
