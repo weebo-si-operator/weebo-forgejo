@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.10.0](https://github.com/weebo-si-operator/weebo-forgejo/compare/7f36144732080e11331ace51f2213f9ee9aa2966..v0.10.0) - 2026-11-13
+#### Features
+- (**vault**) {name} captures in pathGrants (kit v0.31.0) - ([d37eec0](https://github.com/weebo-si-operator/weebo-forgejo/commit/d37eec0f0d0f9e2d89dd35a4610d3b76f40c38fa)) - Max Batleforc, Claude Opus 5.5
+#### Bug Fixes
+- (**image**) core-runtime base with libgcc 16.2.1-3.2 - ([7f36144](https://github.com/weebo-si-operator/weebo-forgejo/commit/7f36144732080e11331ace51f2213f9ee9aa2966)) - Max Batleforc, Claude Opus 5.5
+
+- - -
+
 ## [v0.9.0](https://github.com/weebo-si-operator/weebo-forgejo/compare/3a98d57da6b5839e44dda983d5d0473dff6738f0..v0.9.0) - 2026-11-06
 #### Features
 - (**vault**) additional mounts in other Vault namespaces (kit v0.29.0) - ([3a98d57](https://github.com/weebo-si-operator/weebo-forgejo/commit/3a98d57da6b5839e44dda983d5d0473dff6738f0)) - Max Batleforc, Claude Opus 5.5
