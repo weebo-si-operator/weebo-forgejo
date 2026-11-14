@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.11.0](https://github.com/weebo-si-operator/weebo-forgejo/compare/f39952f244293b5e2ae76650f945a533c4a3c336..v0.11.0) - 2026-11-14
+#### Features
+- (**chart**) networkPolicy.kind CiliumNetworkPolicy (kit v0.32.0) - ([f39952f](https://github.com/weebo-si-operator/weebo-forgejo/commit/f39952f244293b5e2ae76650f945a533c4a3c336)) - Max Batleforc, Claude Opus 5.5
+
+- - -
+
 ## [v0.10.0](https://github.com/weebo-si-operator/weebo-forgejo/compare/7f36144732080e11331ace51f2213f9ee9aa2966..v0.10.0) - 2026-11-13
 #### Features
 - (**vault**) {name} captures in pathGrants (kit v0.31.0) - ([d37eec0](https://github.com/weebo-si-operator/weebo-forgejo/commit/d37eec0f0d0f9e2d89dd35a4610d3b76f40c38fa)) - Max Batleforc, Claude Opus 5.5
